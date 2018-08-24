@@ -1,0 +1,27 @@
+{
+    "name": "turenar/simutrans-save-api-php",
+    "type": "library",
+    "description": "",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Turenar",
+            "email": "snswinhaiku.lo@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0"
+    },
+    "suggest": {
+        "ext-bz2": "Required for bzip2 compressed file",
+        "ext-zip": "Required for zip compressed file"
+    },
+    "autoload": {
+        "psr-4": {
+            "Turenar\\": "src/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7"
+    }
+}
