@@ -5,7 +5,7 @@ namespace Turenar\Simutrans\Reader\Xml;
 
 
 use Turenar\Simutrans\Exception\MissingModuleException;
-use Turenar\Simutrans\Stream\Stream;
+use Turenar\Simutrans\Stream\Input\InputStream;
 
 class Parser
 {
@@ -13,7 +13,7 @@ class Parser
 	protected $parser;
 	protected $queue;
 
-	public function __construct(Stream $stream)
+	public function __construct(InputStream $stream)
 	{
 		MissingModuleException::checkModuleFunction('xml', 'xml_parser_create');
 

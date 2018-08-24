@@ -9,7 +9,7 @@ use Turenar\Simutrans\Exception\InvalidSaveException;
 use Turenar\Simutrans\Exception\MissingModuleException;
 use Turenar\Simutrans\Exception\NotImplementedException;
 use Turenar\Simutrans\Reader\Reader;
-use Turenar\Simutrans\Stream\Stream;
+use Turenar\Simutrans\Stream\Input\InputStream;
 use Turenar\Simutrans\Version;
 
 class XmlReader implements Reader
@@ -17,7 +17,7 @@ class XmlReader implements Reader
 	private $parser;
 	private $context;
 
-	public function __construct(Stream $stream)
+	public function __construct(InputStream $stream)
 	{
 		MissingModuleException::checkModuleFunction('xml', 'xml_parser_create');
 

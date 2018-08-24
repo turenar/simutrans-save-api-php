@@ -5,7 +5,7 @@ namespace Turenar\Simutrans\Reader\Xml;
 
 
 use PHPUnit\Framework\TestCase;
-use Turenar\Simutrans\Stream\FileStream;
+use Turenar\Simutrans\Stream\Input\FileInputStream;
 use Turenar\Simutrans\TestUtils;
 
 class XmlReaderTest extends TestCase
@@ -13,7 +13,7 @@ class XmlReaderTest extends TestCase
 	public function testGetContext()
 	{
 		$fp = fopen(TestUtils::getSaveDir() . '/xml.sve', 'r');
-		$stream = new FileStream($fp);
+		$stream = new FileInputStream($fp);
 		$reader = new XmlReader($stream);
 
 		$context = $reader->getContext();

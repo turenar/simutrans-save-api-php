@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Turenar\Simutrans\Stream;
+namespace Turenar\Simutrans\Stream\Input;
 
 
-class FileStream implements Stream
+class FileInputStream implements InputStream
 {
 	/**
 	 * @var resource
@@ -23,11 +23,6 @@ class FileStream implements Stream
 	public function read(int $len): string
 	{
 		return fread($this->fp, $len);
-	}
-
-	public function write(string $data): void
-	{
-		fwrite($this->fp, $data);
 	}
 
 	public function hasNext(): bool
