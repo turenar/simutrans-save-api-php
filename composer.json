@@ -10,7 +10,8 @@
         }
     ],
     "require": {
-        "php": ">=7.0"
+        "php": ">=7.1",
+        "ext-xml": "*"
     },
     "suggest": {
         "ext-bz2": "Required for bzip2 compressed file",
@@ -18,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Turenar\\": "src/"
+            "Turenar\\Simutrans\\": "src/"
         }
     },
     "require-dev": {
