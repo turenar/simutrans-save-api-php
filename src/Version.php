@@ -54,4 +54,9 @@ class Version
 	{
 		return $this->versions[3] ?? null;
 	}
+
+	public function asString(): string
+	{
+		return implode('.', $this->versions);
+	}
 }
