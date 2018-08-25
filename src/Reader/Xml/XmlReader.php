@@ -7,7 +7,6 @@ namespace Turenar\Simutrans\Reader\Xml;
 use Turenar\Simutrans\Context;
 use Turenar\Simutrans\Exception\InvalidSaveException;
 use Turenar\Simutrans\Exception\MissingModuleException;
-use Turenar\Simutrans\Exception\NotImplementedException;
 use Turenar\Simutrans\Reader\Reader;
 use Turenar\Simutrans\Stream\Input\InputStream;
 use Turenar\Simutrans\Version;
@@ -74,8 +73,9 @@ class XmlReader implements Reader
 
 	public function readString(): string
 	{
-		throw new NotImplementedException();
-		// TODO: Implement readString() method.
+		$token = $this->parser->next();
+		$token->assertType(Token::TYPE_STRING);
+		return $token->getStr();
 	}
 
 	private function parseContext(): Context

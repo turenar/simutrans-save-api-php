@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<Simutrans version="0.120.6" pak="pak64">
+    <![CDATA[string]]>
+    <i16>0</i16>
+    <![CDATA[foo]]>
+    <![CDATA[bar]]>
+    <i16>0</i16>
+    <![CDATA[piyo]]>
+</Simutrans>

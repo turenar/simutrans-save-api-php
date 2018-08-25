@@ -133,4 +133,17 @@ class XmlReaderTest extends TestCase
 		self::assertEquals(-256, $reader->readId());
 		self::assertEquals(-32768, $reader->readId());
 	}
+
+	public function testReadString()
+	{
+		$stream = new FileInputStream(TestUtils::getSaveDir() . '/dummy/string.sve');
+		$reader = new XmlReader($stream);
+
+		self::assertEquals('string', $reader->readString());
+		self::assertEquals(0, $reader->readShort());
+		self::assertEquals('foo', $reader->readString());
+		self::assertEquals('bar', $reader->readString());
+		self::assertEquals(0, $reader->readShort());
+		self::assertEquals('piyo', $reader->readString());
+	}
 }
