@@ -50,7 +50,7 @@ class Parser
 
 	protected function ensureNext()
 	{
-		if (empty($queue)) {
+		if (empty($this->queue)) {
 			$data = $this->stream->read(65536);
 			if (!xml_parse($this->parser, $data, !$this->stream->hasNext())) {
 				throw new \RuntimeException(sprintf("parse failed: %s [%s,%s]",
