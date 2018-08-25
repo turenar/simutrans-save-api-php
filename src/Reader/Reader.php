@@ -12,6 +12,8 @@ interface Reader
 
 	public function readByte(): int;
 
+	public function readUnsignedByte(): int;
+
 	public function readShort(): int;
 
 	public function readInt(): int;

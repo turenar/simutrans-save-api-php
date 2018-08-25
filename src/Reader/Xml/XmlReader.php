@@ -35,6 +35,11 @@ class XmlReader implements Reader
 		return $this->nextNumber('i8');
 	}
 
+	public function readUnsignedByte(): int
+	{
+		return $this->fixUnsigned($this->readByte(), 8);
+	}
+
 	public function readShort(): int
 	{
 		return $this->nextNumber('i16');
@@ -98,5 +103,14 @@ class XmlReader implements Reader
 		$content_token->assertType(Token::TYPE_STRING);
 		$this->parser->skip(Token::TYPE_CLOSE_TAG, $tag_name);
 		return $content_token->getStr();
+	}
+
+	private function fixUnsigned(int $orig, int $bit_width): int
+	{
+		if ($orig < 0) {
+			return $orig + (1 << $bit_width);
+		} else {
+			return $orig;
+		}
 	}
 }

@@ -31,4 +31,28 @@ class XmlReaderTest extends TestCase
 		self::assertEquals("pak128.britain-ex-nightly", $context->getPakName());
 		self::assertEquals(0, $context->getExtendedRevision());
 	}
+
+	public function testReadByte()
+	{
+		$stream = new FileInputStream(TestUtils::getSaveDir() . '/dummy/i8.sve');
+		$reader = new XmlReader($stream);
+
+		self::assertEquals(0, $reader->readByte());
+		self::assertEquals(42, $reader->readByte());
+		self::assertEquals(127, $reader->readByte());
+		self::assertEquals(-1, $reader->readByte());
+		self::assertEquals(-128, $reader->readByte());
+	}
+
+	public function testReadUnsignedByte()
+	{
+		$stream = new FileInputStream(TestUtils::getSaveDir() . '/dummy/i8.sve');
+		$reader = new XmlReader($stream);
+
+		self::assertEquals(0, $reader->readUnsignedByte());
+		self::assertEquals(42, $reader->readUnsignedByte());
+		self::assertEquals(127, $reader->readUnsignedByte());
+		self::assertEquals(255, $reader->readUnsignedByte());
+		self::assertEquals(128, $reader->readUnsignedByte());
+	}
 }
