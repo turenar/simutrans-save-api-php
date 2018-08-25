@@ -45,6 +45,11 @@ class XmlReader implements Reader
 		return $this->nextNumber('i16');
 	}
 
+	public function readUnsignedShort(): int
+	{
+		return $this->fixUnsigned($this->readShort(), 16);
+	}
+
 	public function readInt(): int
 	{
 		return $this->nextNumber('i32');

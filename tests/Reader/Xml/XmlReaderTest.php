@@ -55,4 +55,30 @@ class XmlReaderTest extends TestCase
 		self::assertEquals(255, $reader->readUnsignedByte());
 		self::assertEquals(128, $reader->readUnsignedByte());
 	}
+
+	public function testReadShort()
+	{
+		$stream = new FileInputStream(TestUtils::getSaveDir() . '/dummy/i16.sve');
+		$reader = new XmlReader($stream);
+
+		self::assertEquals(0, $reader->readShort());
+		self::assertEquals(256, $reader->readShort());
+		self::assertEquals(32767, $reader->readShort());
+		self::assertEquals(-1, $reader->readShort());
+		self::assertEquals(-256, $reader->readShort());
+		self::assertEquals(-32768, $reader->readShort());
+	}
+
+	public function testReadUnsignedShort()
+	{
+		$stream = new FileInputStream(TestUtils::getSaveDir() . '/dummy/i16.sve');
+		$reader = new XmlReader($stream);
+
+		self::assertEquals(0, $reader->readUnsignedShort());
+		self::assertEquals(256, $reader->readUnsignedShort());
+		self::assertEquals(32767, $reader->readUnsignedShort());
+		self::assertEquals(65535, $reader->readUnsignedShort());
+		self::assertEquals(65280, $reader->readUnsignedShort());
+		self::assertEquals(32768, $reader->readUnsignedShort());
+	}
 }

@@ -16,6 +16,8 @@ interface Reader
 
 	public function readShort(): int;
 
+	public function readUnsignedShort(): int;
+
 	public function readInt(): int;
 
 	public function readLongLong(): string;
