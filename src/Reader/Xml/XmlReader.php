@@ -90,10 +90,7 @@ class XmlReader implements Reader
 		$pak = $attrs['pak'] ?? null;
 		if ($version_str !== null && $pak !== null) {
 			$version = Version::parse($version_str);
-			$extended_revision = null;
-			if ($version->isExtendedVersion()) {
-				$extended_revision = $this->readInt();
-			}
+			$extended_revision = $version->isExtendedVersion() ? $this->readInt() : null;
 			return new Context($version, $pak, $extended_revision);
 		} else {
 			throw new InvalidSaveException("invalid version/pak signature");
