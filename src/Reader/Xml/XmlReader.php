@@ -45,7 +45,7 @@ class XmlReader implements Reader
 		return $this->nextNumber('i32');
 	}
 
-	public function readLongLong(): int
+	public function readLongLong(): string
 	{
 		throw new NotImplementedException();
 		// TODO: Implement readLongLong() method.

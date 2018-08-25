@@ -16,7 +16,7 @@ interface Reader
 
 	public function readInt(): int;
 
-	public function readLongLong(): int;
+	public function readLongLong(): string;
 
 	public function readId(): int;
 
