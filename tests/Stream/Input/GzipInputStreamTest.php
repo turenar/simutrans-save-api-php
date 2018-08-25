@@ -11,13 +11,13 @@ class GzipInputStreamTest extends TestCase
 {
 	public function testRead()
 	{
-		$gz_stream = new GzipInputStream(TestUtils::getSaveDir() . '/xml_gz.sve');
+		$gz_stream = new GzipInputStream(TestUtils::getSaveDir() . '/extended/xml_gz.sve');
 		$gz_hash = hash_init('sha256');
 		while ($gz_stream->hasNext()) {
 			hash_update($gz_hash, $gz_stream->read(65536));
 		}
 
-		$raw_stream = new FileInputStream(TestUtils::getSaveDir() . '/xml.sve');
+		$raw_stream = new FileInputStream(TestUtils::getSaveDir() . '/extended/xml.sve');
 		$raw_hash = hash_init('sha256');
 		while ($raw_stream->hasNext()) {
 			hash_update($raw_hash, $raw_stream->read(65536));
