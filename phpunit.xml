@@ -8,4 +8,9 @@
     <php>
         <const name="SAVE_DIR" value="tests/save"/>
     </php>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src</directory>
+        </whitelist>
+    </filter>
 </phpunit>
