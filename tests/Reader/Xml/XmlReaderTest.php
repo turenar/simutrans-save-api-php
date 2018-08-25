@@ -10,7 +10,18 @@ use Turenar\Simutrans\TestUtils;
 
 class XmlReaderTest extends TestCase
 {
-	public function testGetContext()
+	public function testGetStandardContext()
+	{
+		$stream = new FileInputStream(TestUtils::getSaveDir() . '/standard/xml.sve');
+		$reader = new XmlReader($stream);
+
+		$context = $reader->getContext();
+		self::assertEquals("0.120.6", $context->getVersion()->asString());
+		self::assertEquals("pak64", $context->getPakName());
+		self::assertEquals(null, $context->getExtendedRevision());
+	}
+
+	public function testGetExtendedContext()
 	{
 		$stream = new FileInputStream(TestUtils::getSaveDir() . '/extended/xml.sve');
 		$reader = new XmlReader($stream);
