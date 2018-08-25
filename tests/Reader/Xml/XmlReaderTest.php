@@ -107,4 +107,17 @@ class XmlReaderTest extends TestCase
 		self::assertEquals(4171510507, $reader->readUnsignedInt());
 		self::assertEquals(2147483648, $reader->readUnsignedInt());
 	}
+
+	public function testReadLongLong()
+	{
+		$stream = new FileInputStream(TestUtils::getSaveDir() . '/dummy/i64.sve');
+		$reader = new XmlReader($stream);
+
+		self::assertEquals("0", $reader->readLongLong());
+		self::assertEquals("2147483647", $reader->readLongLong());
+		self::assertEquals("9223372036854775807", $reader->readLongLong());
+		self::assertEquals("-1", $reader->readLongLong());
+		self::assertEquals("-2147483648", $reader->readLongLong());
+		self::assertEquals("-9223372036854775808", $reader->readLongLong());
+	}
 }

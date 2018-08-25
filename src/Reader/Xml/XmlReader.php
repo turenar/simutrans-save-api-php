@@ -62,8 +62,9 @@ class XmlReader implements Reader
 
 	public function readLongLong(): string
 	{
-		throw new NotImplementedException();
-		// TODO: Implement readLongLong() method.
+		// 64bit width integer doesn't support on 32bit environment.
+		// we should return it as string
+		return $this->getTagContent('i64');
 	}
 
 	public function readId(): int
