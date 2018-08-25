@@ -12,19 +12,18 @@ class GzipInputStreamTest extends TestCase
 	public function testRead()
 	{
 		$gz_stream = new GzipInputStream(TestUtils::getSaveDir() . '/xml_gz.sve');
-		$gz_data = [];
+		$gz_hash = hash_init('sha256');
 		while ($gz_stream->hasNext()) {
-			$gz_data[] = $gz_stream->read(65536);
+			hash_update($gz_hash, $gz_stream->read(65536));
 		}
 
 		$raw_stream = new FileInputStream(TestUtils::getSaveDir() . '/xml.sve');
-		$raw_data = [];
+		$raw_hash = hash_init('sha256');
 		while ($raw_stream->hasNext()) {
-			$raw_data[] = $raw_stream->read(65536);
+			hash_update($raw_hash, $raw_stream->read(65536));
 		}
 
-		$gz_content = implode('', $gz_data);
-		$raw_content = implode('', $raw_data);
-		self::assertEquals($raw_content, $gz_content, 'gzipped content mismatch');
+		// compare hash rather than raw body to avoid large diff
+		self::assertEquals(hash_final($raw_hash), hash_final($gz_hash), 'gzipped content mismatch');
 	}
 }

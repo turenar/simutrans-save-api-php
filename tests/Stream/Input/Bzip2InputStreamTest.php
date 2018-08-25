@@ -12,19 +12,18 @@ class Bzip2InputStreamTest extends TestCase
 	public function testRead()
 	{
 		$bz_stream = new Bzip2InputStream(TestUtils::getSaveDir() . '/xml_bz2.sve');
-		$bz_data = [];
+		$bz_hash = hash_init('sha256');
 		while ($bz_stream->hasNext()) {
-			$bz_data[] = $bz_stream->read(65536);
+			hash_update($bz_hash, $bz_stream->read(65536));
 		}
 
 		$raw_stream = new FileInputStream(TestUtils::getSaveDir() . '/xml.sve');
-		$raw_data = [];
+		$raw_hash = hash_init('sha256');
 		while ($raw_stream->hasNext()) {
-			$raw_data[] = $raw_stream->read(65536);
+			hash_update($raw_hash, $raw_stream->read(65536));
 		}
 
-		$gz_content = implode('', $bz_data);
-		$raw_content = implode('', $raw_data);
-		self::assertEquals($raw_content, $gz_content, 'gzipped content mismatch');
+		// compare hash rather than raw body to avoid large diff
+		self::assertEquals(hash_final($raw_hash), hash_final($bz_hash), 'bzipped content mismatch');
 	}
 }
