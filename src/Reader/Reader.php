@@ -24,6 +24,8 @@ interface Reader
 
 	public function readLongLong(): string;
 
+	public function readDouble(): float;
+
 	public function readId(): int;
 
 	public function readString(): string;

@@ -146,4 +146,16 @@ class XmlReaderTest extends TestCase
 		self::assertEquals(0, $reader->readShort());
 		self::assertEquals('piyo', $reader->readString());
 	}
+
+	public function testReadDouble()
+	{
+		$stream = new FileInputStream(TestUtils::getSaveDir() . '/dummy/double.sve');
+		$reader = new XmlReader($stream);
+
+		self::assertEquals(0, $reader->readDouble(), '',0.000001);
+		self::assertEquals(4.0, $reader->readDouble(), '',0.000001);
+		self::assertEquals(12345.678, $reader->readDouble(), '',0.000001);
+		self::assertEquals(-958.471, $reader->readDouble(), '',0.000001);
+		self::assertEquals(-12345.678, $reader->readDouble(), '',0.000001);
+	}
 }

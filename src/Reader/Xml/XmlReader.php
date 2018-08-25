@@ -78,6 +78,12 @@ class XmlReader implements Reader
 		return $token->getStr();
 	}
 
+	public function readDouble(): float
+	{
+		$d = $this->getTagContent('d1000');
+		return (doubleval($d) + 0.000001) / 1000.0;
+	}
+
 	private function parseContext(): Context
 	{
 		$simutrans_tag = $this->parser->next();
