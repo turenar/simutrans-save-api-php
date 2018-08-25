@@ -69,8 +69,7 @@ class XmlReader implements Reader
 
 	public function readId(): int
 	{
-		throw new NotImplementedException();
-		// TODO: Implement readInt() method.
+		return $this->nextNumber('id');
 	}
 
 	public function readString(): string

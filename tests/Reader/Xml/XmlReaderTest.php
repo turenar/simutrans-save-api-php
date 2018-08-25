@@ -120,4 +120,17 @@ class XmlReaderTest extends TestCase
 		self::assertEquals("-2147483648", $reader->readLongLong());
 		self::assertEquals("-9223372036854775808", $reader->readLongLong());
 	}
+
+	public function testReadId()
+	{
+		$stream = new FileInputStream(TestUtils::getSaveDir() . '/dummy/id.sve');
+		$reader = new XmlReader($stream);
+
+		self::assertEquals(0, $reader->readId());
+		self::assertEquals(256, $reader->readId());
+		self::assertEquals(32767, $reader->readId());
+		self::assertEquals(-1, $reader->readId());
+		self::assertEquals(-256, $reader->readId());
+		self::assertEquals(-32768, $reader->readId());
+	}
 }
