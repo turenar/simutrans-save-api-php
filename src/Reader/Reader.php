@@ -20,6 +20,8 @@ interface Reader
 
 	public function readInt(): int;
 
+	public function readUnsignedInt(): int;
+
 	public function readLongLong(): string;
 
 	public function readId(): int;
