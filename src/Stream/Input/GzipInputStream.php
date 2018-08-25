@@ -8,7 +8,6 @@ use Turenar\Simutrans\Exception\MissingModuleException;
 
 class GzipInputStream implements InputStream
 {
-	private $inflater;
 	/**
 	 * @var resource
 	 */
@@ -16,25 +15,23 @@ class GzipInputStream implements InputStream
 
 	/**
 	 * GzipStream constructor.
-	 * @param resource $fp
+	 * @param string $filename
 	 */
-	public function __construct($fp)
+	public function __construct(string $filename)
 	{
-		MissingModuleException::checkModuleFunction('zlib', 'deflate_init');
-		$this->inflater = inflate_init(ZLIB_ENCODING_GZIP);
-		$this->fp = $fp;
+		MissingModuleException::checkModuleFunction('zlib', 'gzopen');
+		$this->fp = gzopen($filename, 'r');
 	}
 
 
 	public function read(int $len): string
 	{
-		$data = fread($this->fp, $len);
-		return inflate_add($this->inflater, $data);
+		return gzread($this->fp, $len);
 	}
 
 
 	public function hasNext(): bool
 	{
-		return !feof($this->fp);
+		return !gzeof($this->fp);
 	}
 }

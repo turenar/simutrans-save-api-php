@@ -12,8 +12,7 @@ class XmlReaderTest extends TestCase
 {
 	public function testGetContext()
 	{
-		$fp = fopen(TestUtils::getSaveDir() . '/xml.sve', 'r');
-		$stream = new FileInputStream($fp);
+		$stream = new FileInputStream(TestUtils::getSaveDir() . '/xml.sve');
 		$reader = new XmlReader($stream);
 
 		$context = $reader->getContext();

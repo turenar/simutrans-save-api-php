@@ -12,12 +12,12 @@ class FileInputStream implements InputStream
 	private $fp;
 
 	/**
-	 * FileStream constructor.
-	 * @param resource $fp
+	 * FileInputStream constructor.
+	 * @param string $filename
 	 */
-	public function __construct($fp)
+	public function __construct(string $filename)
 	{
-		$this->fp = $fp;
+		$this->fp = fopen($filename, 'rb');
 	}
 
 	public function read(int $len): string
