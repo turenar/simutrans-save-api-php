@@ -84,6 +84,18 @@ class XmlReader implements Reader
 		return (doubleval($d) + 0.000001) / 1000.0;
 	}
 
+	public function openTag(string $tag_name): Reader
+	{
+		$this->parser->skip(Token::TYPE_OPEN_TAG, $tag_name);
+		return $this;
+	}
+
+	public function closeTag(string $tag_name): Reader
+	{
+		$this->parser->skip(Token::TYPE_CLOSE_TAG, $tag_name);
+		return $this;
+	}
+
 	private function parseContext(): Context
 	{
 		$simutrans_tag = $this->parser->next();

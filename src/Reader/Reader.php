@@ -29,4 +29,8 @@ interface Reader
 	public function readId(): int;
 
 	public function readString(): string;
+
+	public function openTag(string $tag_name): Reader;
+
+	public function closeTag(string $tag_name): Reader;
 }

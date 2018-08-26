@@ -158,4 +158,17 @@ class XmlReaderTest extends TestCase
 		self::assertEquals(-958.471, $reader->readDouble(), '',0.000001);
 		self::assertEquals(-12345.678, $reader->readDouble(), '',0.000001);
 	}
+
+	public function testOpenCloseTag()
+	{
+		$stream = new FileInputStream(TestUtils::getSaveDir() . '/dummy/tag.sve');
+		$reader = new XmlReader($stream);
+
+		$reader->openTag('foo');
+		self::assertEquals('string', $reader->readString());
+		$reader->closeTag('foo');
+		$reader->openTag('bar');
+		self::assertEquals(0, $reader->readShort());
+		$reader->closeTag('bar');
+	}
 }
