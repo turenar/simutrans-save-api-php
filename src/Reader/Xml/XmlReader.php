@@ -16,11 +16,11 @@ class XmlReader implements Reader
 	private $parser;
 	private $context;
 
-	public function __construct(InputStream $stream)
+	public function __construct(InputStream $stream, $chunk_size = Parser::DEFAULT_CHUNK_SIZE)
 	{
 		MissingModuleException::checkModuleFunction('xml', 'xml_parser_create');
 
-		$this->parser = new Parser($stream);
+		$this->parser = new Parser($stream, $chunk_size);
 		$this->context = $this->parseContext();
 	}
 

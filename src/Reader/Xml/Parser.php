@@ -9,11 +9,18 @@ use Turenar\Simutrans\Stream\Input\InputStream;
 
 class Parser
 {
-	protected $stream;
-	protected $parser;
-	protected $queue;
+	public const DEFAULT_CHUNK_SIZE = 4096;
 
-	public function __construct(InputStream $stream)
+	/** @var InputStream */
+	protected $stream;
+	/** @var resource */
+	protected $parser;
+	/** @var Token[] */
+	protected $queue;
+	/** @var int */
+	protected $chunk_size;
+
+	public function __construct(InputStream $stream, int $chunk_size = self::DEFAULT_CHUNK_SIZE)
 	{
 		MissingModuleException::checkModuleFunction('xml', 'xml_parser_create');
 
@@ -24,6 +31,7 @@ class Parser
 
 		$this->stream = $stream;
 		$this->queue = [];
+		$this->chunk_size = $chunk_size;
 	}
 
 	public function next(): ?Token
@@ -50,8 +58,8 @@ class Parser
 
 	protected function ensureNext()
 	{
-		if (empty($this->queue)) {
-			$data = $this->stream->read(65536);
+		while (empty($this->queue) && $this->stream->hasNext()) {
+			$data = $this->stream->read($this->chunk_size);
 			if (!xml_parse($this->parser, $data, !$this->stream->hasNext())) {
 				throw new \RuntimeException(sprintf("parse failed: %s [%s,%s]",
 					xml_error_string(xml_get_error_code($this->parser)), xml_get_current_line_number($this->parser),

@@ -32,6 +32,17 @@ class XmlReaderTest extends TestCase
 		self::assertEquals(0, $context->getExtendedRevision());
 	}
 
+	public function testReadWithChunk()
+	{
+		$stream = new FileInputStream(TestUtils::getSaveDir() . '/extended/xml.sve');
+		$reader = new XmlReader($stream, 32);
+
+		$context = $reader->getContext();
+		self::assertEquals("0.120.4.14", $context->getVersion()->asString());
+		self::assertEquals("pak128.britain-ex-nightly", $context->getPakName());
+		self::assertEquals(0, $context->getExtendedRevision());
+	}
+
 	public function testReadByte()
 	{
 		$stream = new FileInputStream(TestUtils::getSaveDir() . '/dummy/i8.sve');
