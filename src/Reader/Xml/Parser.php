@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Turenar\Simutrans\Reader\Xml;
 
 
+use Turenar\Simutrans\Exception\InvalidSaveException;
 use Turenar\Simutrans\Exception\MissingModuleException;
 use Turenar\Simutrans\Stream\Input\InputStream;
 
@@ -44,13 +45,15 @@ class Parser
 	{
 		$token = $this->next();
 		if ($token === null) {
-			throw new \LogicException("unexpected eof");
+			throw new InvalidSaveException("unexpected eof");
 		}
 		if ($token->getType() !== $tokenType) {
-			throw new \LogicException("invalid token: expected type=$tokenType but actual type={$token->getType()}");
+			throw new InvalidSaveException(
+				"invalid token: expected type=$tokenType but got " . Token::represent($tokenType, $data));
 		}
 		if ($data !== null && $data !== $token->getStr()) {
-			throw new \LogicException("invalid token: expected data=$data but actual data={$token->getStr()}");
+			throw new InvalidSaveException(sprintf("invalid token: expected %s but actual %s", $token->asString(),
+				Token::represent($tokenType, $data)));
 		}
 		return $this;
 	}
@@ -61,7 +64,7 @@ class Parser
 		while (empty($this->queue) && $this->stream->hasNext()) {
 			$data = $this->stream->read($this->chunk_size);
 			if (!xml_parse($this->parser, $data, !$this->stream->hasNext())) {
-				throw new \RuntimeException(sprintf("parse failed: %s [%s,%s]",
+				throw new InvalidSaveException(sprintf("xml parse failed: %s [%s,%s]",
 					xml_error_string(xml_get_error_code($this->parser)), xml_get_current_line_number($this->parser),
 					xml_get_current_column_number($this->parser)));
 			}

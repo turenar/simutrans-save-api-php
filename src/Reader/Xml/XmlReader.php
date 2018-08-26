@@ -107,7 +107,12 @@ class XmlReader implements Reader
 		$version_str = $attrs['version'] ?? null;
 		$pak = $attrs['pak'] ?? null;
 		if ($version_str !== null && $pak !== null) {
-			$version = Version::parse($version_str);
+			try {
+				$version = Version::parse($version_str);
+			} catch (\InvalidArgumentException $e) {
+				throw new InvalidSaveException($e->getMessage(), $e->getCode(), $e);
+			}
+			// extended save has <i32>revision</i32> immediately after <Simutrans>
 			$extended_revision = $version->isExtendedVersion() ? $this->readInt() : null;
 			return new Context($version, $pak, $extended_revision);
 		} else {

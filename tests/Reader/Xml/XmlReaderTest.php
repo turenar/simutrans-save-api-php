@@ -163,11 +163,11 @@ class XmlReaderTest extends TestCase
 		$stream = new FileInputStream(TestUtils::getSaveDir() . '/dummy/double.sve');
 		$reader = new XmlReader($stream);
 
-		self::assertEquals(0, $reader->readDouble(), '',0.000001);
-		self::assertEquals(4.0, $reader->readDouble(), '',0.000001);
-		self::assertEquals(12345.678, $reader->readDouble(), '',0.000001);
-		self::assertEquals(-958.471, $reader->readDouble(), '',0.000001);
-		self::assertEquals(-12345.678, $reader->readDouble(), '',0.000001);
+		self::assertEquals(0, $reader->readDouble(), '', 0.000001);
+		self::assertEquals(4.0, $reader->readDouble(), '', 0.000001);
+		self::assertEquals(12345.678, $reader->readDouble(), '', 0.000001);
+		self::assertEquals(-958.471, $reader->readDouble(), '', 0.000001);
+		self::assertEquals(-12345.678, $reader->readDouble(), '', 0.000001);
 	}
 
 	public function testOpenCloseTag()
@@ -181,5 +181,54 @@ class XmlReaderTest extends TestCase
 		$reader->openTag('bar');
 		self::assertEquals(0, $reader->readShort());
 		$reader->closeTag('bar');
+	}
+
+	/** @expectedException \Turenar\Simutrans\Exception\InvalidSaveException */
+	public function testInvalidStartTag()
+	{
+		$stream = new FileInputStream(TestUtils::getSaveDir() . '/dummy/invalid_start_tag.sve');
+		$reader = new XmlReader($stream);
+	}
+
+	/** @expectedException \Turenar\Simutrans\Exception\InvalidSaveException */
+	public function testInvalidExtendedSave()
+	{
+		$stream = new FileInputStream(TestUtils::getSaveDir() . '/dummy/invalid_extended_save.sve');
+		$reader = new XmlReader($stream);
+	}
+
+	/** @expectedException \Turenar\Simutrans\Exception\InvalidSaveException */
+	public function testInvalidVersionNoMajor()
+	{
+		$stream = new FileInputStream(TestUtils::getSaveDir() . '/dummy/invalid_version_no_major.sve');
+		$reader = new XmlReader($stream);
+	}
+
+	/** @expectedException \Turenar\Simutrans\Exception\InvalidSaveException */
+	public function testInvalidVersionNoMinor()
+	{
+		$stream = new FileInputStream(TestUtils::getSaveDir() . '/dummy/invalid_version_no_minor.sve');
+		$reader = new XmlReader($stream);
+	}
+
+	/** @expectedException \Turenar\Simutrans\Exception\InvalidSaveException */
+	public function testInvalidVersionString()
+	{
+		$stream = new FileInputStream(TestUtils::getSaveDir() . '/dummy/invalid_version_string.sve');
+		$reader = new XmlReader($stream);
+	}
+
+	/** @expectedException \Turenar\Simutrans\Exception\InvalidSaveException */
+	public function testInvalidNoPak()
+	{
+		$stream = new FileInputStream(TestUtils::getSaveDir() . '/dummy/invalid_no_pak.sve');
+		$reader = new XmlReader($stream);
+	}
+
+	/** @expectedException \Turenar\Simutrans\Exception\InvalidSaveException */
+	public function testInvalidNoVersion()
+	{
+		$stream = new FileInputStream(TestUtils::getSaveDir() . '/dummy/invalid_no_version.sve');
+		$reader = new XmlReader($stream);
 	}
 }

@@ -6,11 +6,19 @@ namespace Turenar\Simutrans;
 
 class Version
 {
+	/**
+	 * @param string $version
+	 * @throws \InvalidArgumentException
+	 * @return Version
+	 */
 	public static function parse(string $version): Version
 	{
 		$version_strs = explode('.', $version);
 		$versions = [];
 		foreach ($version_strs as $str) {
+			if (!is_numeric($str)) {
+				throw new \InvalidArgumentException('version specifier is not numeric');
+			}
 			$versions[] = intval($str);
 		}
 		return new Version($versions);
@@ -27,6 +35,9 @@ class Version
 	 */
 	public function __construct(array $versions)
 	{
+		if (count($versions) < 3) {
+			throw new \InvalidArgumentException('version specifier must have 3 elements');
+		}
 		$this->versions = $versions;
 	}
 

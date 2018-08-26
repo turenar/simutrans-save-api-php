@@ -12,7 +12,7 @@ class Token
 	public const TYPE_CLOSE_TAG = 1;
 	public const TYPE_STRING = 2;
 
-	private static function represent(int $type, string $str, array $attributes = null): string
+	public static function represent(int $type, string $str, array $attributes = null): string
 	{
 		switch ($type) {
 			case self::TYPE_STRING:
@@ -80,6 +80,6 @@ class Token
 
 	public function asString(): string
 	{
-		self::represent($this->type, $this->str, $this->attributes);
+		return self::represent($this->type, $this->str, $this->attributes);
 	}
 }
