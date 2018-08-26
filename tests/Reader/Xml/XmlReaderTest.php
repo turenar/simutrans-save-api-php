@@ -144,7 +144,7 @@ class XmlReaderTest extends TestCase
 		self::assertEquals('foo', $reader->readString());
 		self::assertEquals('bar', $reader->readString());
 		self::assertEquals(0, $reader->readShort());
-		self::assertEquals('piyo', $reader->readString());
+		self::assertEquals('', $reader->readString());
 	}
 
 	public function testReadDouble()
